@@ -1,3 +1,5 @@
+import { Editor } from "./components/Editor";
+
 export default function App() {
-  return <p>chalk</p>
+  return <Editor />
 }
