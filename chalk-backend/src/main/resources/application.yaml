@@ -1,3 +1,9 @@
 spring:
   application:
     name: chalk
+springdoc:
+  api-docs:
+    enabled: true
+    path: /openapi.json
+    auto-tag-classes: false
+  swagger-ui.enabled: false
