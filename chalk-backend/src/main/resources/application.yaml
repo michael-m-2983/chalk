@@ -7,3 +7,6 @@ springdoc:
     path: /openapi.json
     auto-tag-classes: false
   swagger-ui.enabled: false
+chalk:
+  storage:
+    path: ../data
