@@ -35,3 +35,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# Auto-generated static resources from frontend
+src/main/resources/static
