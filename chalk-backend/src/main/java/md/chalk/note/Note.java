@@ -9,6 +9,12 @@ import lombok.Data;
 @Data
 @Builder
 public class Note {
+
+    public static final int MIN_TAG_LENGTH = 2;
+    public static final int MAX_TAG_LENGTH = 100;
+    public static final int MAX_TAGS = 50;
+    public static final String TAG_REGEX = "^[a-zA-Z0-9 _-]{2,100}$";
+
     private final NoteId id;
     private final Instant createdAt;
     private final Instant updatedAt;

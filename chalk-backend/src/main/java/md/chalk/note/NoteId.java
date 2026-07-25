@@ -3,6 +3,8 @@ package md.chalk.note;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 /**
  * NoteID
  * 
@@ -49,7 +51,7 @@ public class NoteId {
      */
     public static NoteId load(String s) throws NoteIdException {
         if(s.length() != 16) {
-            throw new NoteIdException("Invalid length of NoteID");
+            throw new NoteIdException("Invalid length of NoteID! Length is " + s.length() + ", but it should be 16. String=" + s);
         }
         if(!s.matches("^0[0-9a-z_]{15}$")) {
             throw new NoteIdException("Invalid NoteID!");
@@ -59,6 +61,7 @@ public class NoteId {
     }
 
     @Override
+    @JsonValue
     public String toString() {
         String s = Long.toString(id, RADIX).replace('-', '_');
 

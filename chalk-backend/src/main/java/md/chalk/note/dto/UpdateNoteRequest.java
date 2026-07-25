@@ -9,5 +9,5 @@ import lombok.Data;
  */
 @Data
 public class UpdateNoteRequest {
-    private final String content;
+    private String content;
 }

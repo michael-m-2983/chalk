@@ -33,14 +33,9 @@ public class NoteSerializer {
     }
 
     public Note deserialize(String raw) {
-        if (!raw.startsWith("---")) {
-            throw new NoteDeserializationException("Missing frontmatter!");
-        }
-
-        //TODO: I'd like to validate that the id in the frontmatter matches the file path
+        if (!raw.startsWith("---")) throw new NoteDeserializationException("Missing frontmatter!");
 
         Note.NoteBuilder builder = Note.builder();
-        
 
         // Split the body into sections
         String[] components = raw.split("---\n");
@@ -62,9 +57,7 @@ public class NoteSerializer {
         // Extract id
         if(!frontmatterLines[0].startsWith("id: ")) throw new NoteDeserializationException("Frontmatter does not start with ID field!");
         try {
-            NoteId id = NoteId.load(frontmatterLines[0].substring("id: ".length()).trim());
-            System.out.println("id=" + id);
-            builder.id(id);
+            builder.id(NoteId.load(frontmatterLines[0].substring("id: ".length()).trim()));
         } catch (NoteIdException e) {
             throw new NoteDeserializationException("Invalid Note ID!");
         }
@@ -80,10 +73,13 @@ public class NoteSerializer {
         // Extract tags
         if(!frontmatterLines[3].startsWith("tags:")) throw new NoteDeserializationException("Frontmatter does not have a 'tags' field!");
         Set<String> tags = new HashSet<>();
+        if(frontmatterLines.length - 4 > Note.MAX_TAGS) throw new NoteDeserializationException("Frontmatter has too many tags!");
         for(int i = 4; i < frontmatterLines.length; i++) {
             if(!frontmatterLines[i].matches("^[\t ]+- .*$")) throw new NoteDeserializationException(String.format("Invalid tag entry in frontmatter on line %d!", i+2));
             String tag = frontmatterLines[i].replaceFirst("^[\t ]+- ", "").trim();
-            //TODO: validate tag
+            if(tag.length() < Note.MIN_TAG_LENGTH) throw new NoteDeserializationException(String.format("Tag entry on line %d is too short", i+2));
+            if(tag.length() > Note.MAX_TAG_LENGTH) throw new NoteDeserializationException(String.format("Tag entry on line %d is too long", i+2));
+            if(!tag.matches(Note.TAG_REGEX)) throw new NoteDeserializationException(String.format("Tag on line %d has invalid characters!", i+2));
             tags.add(tag);
         }
         builder.tags(tags);

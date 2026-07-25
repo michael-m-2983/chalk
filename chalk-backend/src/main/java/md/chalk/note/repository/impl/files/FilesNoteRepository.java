@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -45,7 +46,13 @@ public class FilesNoteRepository implements NoteRepository {
 
         if(!path.toFile().exists() || !path.toFile().isFile()) return Optional.empty();
 
-        return Optional.of(serializer.deserialize(readFile(path)));
+        Note note = serializer.deserialize(readFile(path));
+
+        if(note.getId() != id) {
+            throw new RuntimeException("Frontmatter ID does not match the folder path ID! Something went wrong!");
+        }
+
+        return Optional.of(note);
     }
 
     @Override
@@ -70,7 +77,8 @@ public class FilesNoteRepository implements NoteRepository {
 
     protected static void writeFile(Path path, String contents) {
         try {
-            Files.writeString(path, contents);
+            Files.createDirectories(path.getParent());
+            Files.writeString(path, contents, StandardOpenOption.CREATE);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
