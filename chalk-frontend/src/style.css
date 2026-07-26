@@ -1,6 +1,6 @@
 :root {
     --sidebar-width-full: 280px;
-    --sidebar-width-mini: 60px;
+    --sidebar-width-mini: 65px;
 }
 
 * {
@@ -23,8 +23,33 @@ html, body, #root {
     border-right: 1px solid black;
     overflow: auto;
     transition: width 0.1s ease;
-
     background: #F1F1F1;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.layout-sidebar * {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    text-decoration: none;
+    outline: none;
+    border: none;
+    background: inherit;
+    border: 1px solid transparent;
+    user-select: none;
+}
+
+.layout-sidebar *:hover {
+    border: 1px solid gray;
+    background: color-mix(in oklab, #F1F1F1, black 5%);
+    cursor: pointer;
+}
+
+.layout-sidebar *:active {
+    border: 1px solid black;
+    background: color-mix(in oklab, #F1F1F1, black 20%);
+    cursor: pointer;
 }
 
 .layout-sidebar.closed {
