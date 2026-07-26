@@ -7,7 +7,7 @@ Minimalist note taking app
 
 ## Live Demo
 
-TBA
+You can see the current progress of the project live at <https://michael-m-2983.github.io/chalk/>.
 
 ## Usage
 
