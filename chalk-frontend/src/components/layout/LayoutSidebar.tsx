@@ -6,8 +6,8 @@ export default function LayoutSidebar(props: {
 }) {
     const [open, setOpen] = useState<boolean>(false);
 
-    // CTRL-B toggles the sidebar
-    useKeyboardShortcut(() => setOpen(open => !open), "b", true);
+    // CTRL-Shift-B toggles the sidebar
+    useKeyboardShortcut(() => setOpen(open => !open), "b", true, true);
 
     return <div className={`layout-sidebar ${open ? 'open' : 'closed'}`}>
         <Toggler toggle={() => setOpen(open => !open)} />

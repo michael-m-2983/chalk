@@ -7,10 +7,11 @@ import { useEffect } from "react";
  * @param key The key
  * @param ctrl Does the CTRL key need to be pressed?
  */
-export function useKeyboardShortcut(action: () => any, key: string, ctrl: boolean = false) {
+export function useKeyboardShortcut(action: () => any, key: string, ctrl: boolean = false, shift: boolean = false) {
     useEffect(() => {
         const onKeyDown = (e: KeyboardEvent) => {
             if(ctrl && !e.ctrlKey) return;
+            if(shift && !e.shiftKey) return;
             if(e.key.toLowerCase() != key.toLowerCase()) return;
 
             e.preventDefault();

@@ -1,6 +1,6 @@
 :root {
     --sidebar-width-full: 280px;
-    --sidebar-width-mini: 50px;
+    --sidebar-width-mini: 60px;
 }
 
 * {
@@ -22,7 +22,7 @@ html, body, #root {
     width: var(--sidebar-width-full);
     border-right: 1px solid black;
     overflow: auto;
-    transition: width 0.2s ease;
+    transition: width 0.1s ease;
 
     background: #F1F1F1;
 }
@@ -45,7 +45,7 @@ html, body, #root {
         z-index: 20;
         border-right: none;
         transform: translateX(-100%);
-        transition: transform 0.2s ease;
+        transition: transform 0.1s ease;
     }
 
     .layout-sidebar.open {
